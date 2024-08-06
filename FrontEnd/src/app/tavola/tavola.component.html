@@ -1,0 +1,13 @@
+<div class="container" *ngIf="componentToShow !== 'form' && componentToShow !== 'singolo'">
+  <div class="card" *ngFor="let card of cards">
+    <img [src]="card.image" alt="Card image">
+    <div class="buttons">
+      <button (click)="invioSingolo(card.id)">Invio Singolo</button>
+      <button (click)="invioMassivo(card.id)">Invio Massivo</button>
+    </div>
+  </div>
+</div>
+
+<app-form-page *ngIf="componentToShow === 'form'"></app-form-page>
+<app-form-page1 *ngIf="componentToShow === 'singolo'"></app-form-page1>
+<button *ngIf="componentToShow !== 'cards'" (click)="goBack()">Torna indietro</button>

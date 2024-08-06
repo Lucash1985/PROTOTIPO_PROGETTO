@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
+    <div class="form-outline mb-4">
+      <input type="email" id="emailRegister" name="email" class="form-control" [(ngModel)]="login" />
+      <label class="form-label" for="emailRegister">Email</label>
+    </div>
+  
+    <div class="form-outline mb-4">
+      <input type="password" id="registerPassword" name="password" class="form-control" [(ngModel)]="password" />
+      <label class="form-label" for="registerPassword">Password</label>
+    </div>
+  
+    <div class="form-outline mb-4">
+      <label class="form-label" for="role">Role</label>
+      <select id="role" name="role" class="form-control" [(ngModel)]="role">
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="company">Company:</label>
+      <select id="company" [(ngModel)]="selectedCompany" name="company">
+        <option *ngFor="let company of companies" [value]="company.id">{{ company.name }}</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary btn-block mb-3">Register</button>
+    <button type="button" (click)="backToLogin()" class="btn btn-secondary btn-block mb-3">Back to Login</button>
+  </form>
+  

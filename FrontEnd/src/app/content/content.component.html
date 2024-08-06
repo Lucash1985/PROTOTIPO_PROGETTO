@@ -1,0 +1,26 @@
+<div>
+  <!-- Breadcrumb Header -->
+  <header>
+    <h1>{{ breadcrumb }}</h1>
+  </header>
+
+  <app-buttons
+    (loginEvent)="showComponent('login')"
+    (logoutEvent)="showComponent('welcome')"
+  />
+
+  <!-- Condizione per mostrare solo un componente alla volta -->
+  <app-welcome-content *ngIf="componentToShow === 'welcome'"/>
+  <app-login-form 
+    *ngIf="componentToShow === 'login'" 
+    (onSubmitLoginEvent)="onLogin($event)" 
+    (onSubmitRegisterEvent)="showComponent('register')"/>
+  <div *ngIf="componentToShow === 'messages' && isAdmin">
+    <button (click)="showComponent('register')">Go to Registration</button>
+  </div>
+  <app-register 
+    *ngIf="componentToShow === 'register'" 
+    (onSubmitRegisterEvent)="onRegister($event)"
+    (backToLoginEvent)="handleBackToLogin()"/>
+  <app-tavola *ngIf="componentToShow === 'register' || componentToShow === 'messages'"/>
+</div>

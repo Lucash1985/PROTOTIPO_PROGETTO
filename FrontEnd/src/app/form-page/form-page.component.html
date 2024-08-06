@@ -1,0 +1,170 @@
+<div *ngIf="isFormVisible; else showTable" class="form-page">
+    <div class="form-container">
+      <div class="left-column">
+        <h4>Aggiungi Mittente</h4>
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+          <div>
+            <label for="mittenteNominativo">Nominativo Mittente:</label>
+            <input
+              type="text"
+              id="mittenteNominativo"
+              name="mittenteNominativo"
+              [(ngModel)]="mittenteNominativo"
+              #mittenteNominativoField="ngModel"
+              required
+              maxlength="44"
+              [class.error]="mittenteNominativoField.invalid && mittenteNominativoField.touched"
+            >
+            <div *ngIf="mittenteNominativoField.invalid && mittenteNominativoField.touched" class="error-message">
+              Nominativo Mittente is required and must be at most 44 characters long.
+            </div>
+          </div>
+          <div>
+            <label for="mittenteIndirizzo">Indirizzo Mittente:</label>
+            <input
+              type="text"
+              id="mittenteIndirizzo"
+              name="mittenteIndirizzo"
+              [(ngModel)]="mittenteIndirizzo"
+              required
+              placeholder="ES. via Toledo 50"
+            >
+          </div>
+          <div>
+            <label for="mittenteCitta">Città Mittente:</label>
+            <input
+              type="text"
+              id="mittenteCitta"
+              name="mittenteCitta"
+              [(ngModel)]="mittenteCitta"
+            >
+          </div>
+          <div>
+            <label for="mittenteStato">Stato Mittente:</label>
+            <input
+              type="text"
+              id="mittenteStato"
+              name="mittenteStato"
+              [(ngModel)]="mittenteStato"
+            >
+          </div>
+          <div>
+            <label for="provincia">Provincia:</label>
+            <input
+              type="text"
+              id="provincia"
+              name="provincia"
+              [(ngModel)]="provincia"
+              #provinciaField="ngModel"
+              required
+              pattern="^[A-Z]{2}$"
+              [class.error]="provinciaField.invalid && provinciaField.touched"
+            >
+            <div *ngIf="provinciaField.invalid && provinciaField.touched" class="error-message">
+              Provincia is required and must be exactly 2 uppercase letters.
+            </div>
+          </div>
+        </form>
+      </div>
+  
+      <div class="right-column">
+        <h3 style="text-align: left;">Spedizione</h3>
+        <h4>Aggiungi Destinatario</h4>
+        <div>
+          <label for="destinatarioNominativo">Nominativo Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioNominativo"
+            name="destinatarioNominativo"
+            [(ngModel)]="destinatarioNominativo"
+            #destinatarioNominativoField="ngModel"
+            required
+            maxlength="44"
+            [class.error]="destinatarioNominativoField.invalid && destinatarioNominativoField.touched"
+          >
+          <div *ngIf="destinatarioNominativoField.invalid && destinatarioNominativoField.touched" class="error-message">
+            Nominativo Destinatario is required and must be at most 44 characters long.
+          </div>
+        </div>
+        <div>
+          <label for="destinatarioIndirizzo">Indirizzo Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioIndirizzo"
+            name="destinatarioIndirizzo"
+            [(ngModel)]="destinatarioIndirizzo"
+            required
+            placeholder="ES. via Toledo 50"
+          >
+        </div>
+        <div>
+          <label for="destinatarioCap">CAP Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioCap"
+            name="destinatarioCap"
+            [(ngModel)]="destinatarioCap"
+            #destinatarioCapField="ngModel"
+            required
+            pattern="^\d{5}$"
+            [class.error]="destinatarioCapField.invalid && destinatarioCapField.touched"
+          >
+          <div *ngIf="destinatarioCapField.invalid && destinatarioCapField.touched" class="error-message">
+            CAP Destinatario is required and must be exactly 5 digits long.
+          </div>
+        </div>
+        <div>
+          <label for="destinatarioProvincia">Provincia Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioProvincia"
+            name="destinatarioProvincia"
+            [(ngModel)]="destinatarioProvincia"
+            #destinatarioProvinciaField="ngModel"
+            required
+            pattern="^[A-Z]{2}$"
+            [class.error]="destinatarioProvinciaField.invalid && destinatarioProvinciaField.touched"
+          >
+          <div *ngIf="destinatarioProvinciaField.invalid && destinatarioProvinciaField.touched" class="error-message">
+            Provincia Destinatario is required and must be exactly 2 uppercase letters.
+          </div>
+        </div>
+        <div>
+          <label for="destinatarioCitta">Città Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioCitta"
+            name="destinatarioCitta"
+            [(ngModel)]="destinatarioCitta"
+          >
+        </div>
+        <div>
+          <label for="destinatarioStato">Stato Destinatario:</label>
+          <input
+            type="text"
+            id="destinatarioStato"
+            name="destinatarioStato"
+            [(ngModel)]="destinatarioStato"
+          >
+        </div>
+        
+        <!-- Bottone di Invio e Esci -->
+        <div>
+          <button type="submit" [disabled]="form.invalid">Submit</button>
+          <button type="button" (click)="onExit()">Esci</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Colonna destra per File Upload -->
+    <div class="right-column">
+      <app-file-upload></app-file-upload>
+      
+    </div>
+  </div>
+  
+  <!-- Template per il pulsante di rientro -->
+  <ng-template #showTable>
+    <app-tavola (reEnterForm)="onEnter()"></app-tavola>
+  </ng-template>
+  

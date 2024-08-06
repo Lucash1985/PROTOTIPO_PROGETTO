@@ -1,0 +1,60 @@
+.form-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .form-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px; /* Limita la larghezza massima per centrare il contenuto */
+  }
+  
+  .left-column, .right-column {
+    width: 45%; /* Regola la larghezza delle colonne */
+  }
+  
+  .left-column, .right-column {
+    margin: 0 10px; /* Spaziatura tra le colonne */
+  }
+  
+  .right-column {
+    margin-left: 0;
+    margin-right: 20px; /* Spaziatura tra la colonna destra e il bordo della pagina */
+  }
+  
+  h3 {
+    margin-bottom: 20px;
+    margin-left: 0; /* Assicura che il titolo sia allineato a sinistra */
+    text-align: left; /* Allinea il testo a sinistra */
+    width: 100%; /* Assicura che il titolo occupi tutta la larghezza disponibile */
+  }
+  
+  .destinatario-section {
+    margin-top: 20px;
+  }
+  
+  h4 {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  input {
+    width: 100%; /* Imposta la larghezza degli input al 100% del contenitore */
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+  }
+  

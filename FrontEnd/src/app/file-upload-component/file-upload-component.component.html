@@ -1,0 +1,9 @@
+<div class="file-upload-container">
+    <h2>Upload File PDF</h2>
+    <input type="file" (change)="onFileChange($event)" accept="application/pdf" />
+    <button (click)="upload()">Upload</button>
+    <div *ngIf="uploadMessage" class="upload-message">
+      {{ uploadMessage }}
+    </div>
+  </div>
+  
