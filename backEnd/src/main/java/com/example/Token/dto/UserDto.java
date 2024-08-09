@@ -12,10 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserDto {
-private long id;
-
-private String login;
-private String token;
-private List<String> roles;
-private List<Long> companyIds; // Lista di ID delle aziende
+    private long id;
+    private String login;
+    private String token;
+    private List<String> roles;
+    private Long companyId; // Single company ID
 }

@@ -37,7 +37,7 @@ import { Output } from '@angular/core';
     }
   
     onSubmitRegister(): void {
-      this.onSubmitRegisterEvent.emit({ "login": this.login, "password": this.password, "role": this.role, "companyId": [this.selectedCompany] });
+      this.onSubmitRegisterEvent.emit({ "login": this.login, "password": this.password, "role": this.role, "companyId": this.selectedCompany });
     }
     backToLogin(): void {
       this.backToLoginEvent.emit();

@@ -11,7 +11,7 @@ export class ContentComponent {
   componentToShow: string = "welcome";
   errorMessage: string = '';
   isAdmin: boolean = false; // Variabile per tenere traccia se l'utente è ADMIN
-  companyId: number[] = [];
+  companyId: number=0;
   breadcrumb: string = 'Home'; // Variabile per il breadcrumb
   id :number=0
   constructor(private axiosService: AxiosService) {}
@@ -50,7 +50,7 @@ export class ContentComponent {
         // Aggiorna il ruolo e la visibilità dei componenti in base alla risposta
         this.isAdmin = response.roles.includes('ADMIN');
         if (this.isAdmin) {
-          this.componentToShow = "messages"; // Mostra la vista dei messaggi o una dashboard
+          this.componentToShow = "register"; // Mostra la vista dei messaggi o una dashboard
         } else {
           this.componentToShow = "messages"; // Mostra la vista dei messaggi per altri ruoli
         }
@@ -75,7 +75,7 @@ export class ContentComponent {
     console.log('Dati di input:', input);
     console.log('Valore di companyId:', input.companyId);
       // Assicurati che companyId sia un array, anche se contiene un solo elemento
-  const companyIdsArray = Array.isArray(input.companyId) ? input.companyId : [input.companyId];
+  //const companyIdsArray = Array.isArray(input.companyId) ? input.companyId : [input.companyId];
  
 
     const hashedPassword = this.hashPassword(input.password);
@@ -86,7 +86,7 @@ export class ContentComponent {
         login: input.login,
         password: input.password,
         role: input.role,
-        companyId: companyIdsArray
+        companyId: input.companyId
       }).then(
       response => {
         this.axiosService.setAuthToken(response.data.token);

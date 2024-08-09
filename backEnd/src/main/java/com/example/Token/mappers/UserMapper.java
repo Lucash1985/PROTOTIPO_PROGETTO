@@ -19,22 +19,20 @@ public class UserMapper {
             return null;
         }
         
-        // Mappa anche i ruoli dell'utente
+        // Mappa i ruoli dell'utente
         List<String> roleNames = userEntity.getRoles().stream()
             .map(Role::getName)
             .collect(Collectors.toList());
         
-        // Mappa anche le aziende dell'utente
-        List<Long> companyIds = userEntity.getCompanies().stream()
-            .map(Company::getId)
-            .collect(Collectors.toList());
+        // Ottieni l'ID dell'azienda associata all'utente
+        Long companyId = (userEntity.getCompany() != null) ? userEntity.getCompany().getId() : null;
 
         return UserDto.builder()
                 .id(userEntity.getId())
                 .login(userEntity.getLogin())
                 .roles(roleNames) // Assicurati che UserDto abbia un campo per i ruoli
-                .token(null) // Assuming token is not set here, you might want to set it in a different service
-                .companyIds(companyIds) // Aggiungi gli ID delle aziende
+                .token(null) // Supponendo che il token non sia impostato qui, potrebbe essere impostato in un altro servizio
+                .companyId(companyId) // Aggiungi l'ID dell'azienda
                 .build();
     }
 
@@ -43,12 +41,12 @@ public class UserMapper {
             return null;
         }
 
-        // Costruisci l'entità UserEntity senza aziende e ruoli
+        // Costruisci l'entità UserEntity senza l'azienda e i ruoli
         return UserEntity.builder()
                 .login(signUpDto.login())
                 .password(null) // La password sarà impostata nel servizio
                 .roles(List.of()) // Imposta un elenco vuoto di ruoli
-                .companies(List.of()) // Imposta un elenco vuoto di aziende (se necessario)
+                .company(null) // L'azienda sarà impostata nel servizio
                 .build();
     }
 }

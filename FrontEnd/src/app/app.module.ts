@@ -21,6 +21,8 @@ import { FormPageComponent } from './form-page/form-page.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { FileUploadComponentComponent } from './file-upload-component/file-upload-component.component';
 import { FormPage1Component } from './form-page1/form-page1.component';
+import { DestinatarioComponent } from './destinatario/destinatario.component';
+
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { FormPage1Component } from './form-page1/form-page1.component';
     FormPageComponent,
     BreadcrumbComponent,
     FileUploadComponentComponent,
-    FormPage1Component
+    FormPage1Component,
+    DestinatarioComponent
 
    
   ],

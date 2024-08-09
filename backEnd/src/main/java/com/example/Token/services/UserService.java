@@ -51,33 +51,35 @@ public class UserService {
     }
 
     public UserDto register(SignUpDto signUpDto) {
-    	if (signUpDto.companyId() == null) {
+        if (signUpDto.companyId() == null) {
             throw new IllegalArgumentException("Company ID must not be null");
         }
+
         Optional<UserEntity> oUser = userRepository.findByLogin(signUpDto.login());
         if (oUser.isPresent()) {
             throw new AppException("Login Already Exists", HttpStatus.BAD_REQUEST);
         }
-        
+
         UserEntity user = userMapper.signUpToUser(signUpDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(signUpDto.password())));
-        
+
         Role role = roleRepository.findByName(signUpDto.role())
             .orElseThrow(() -> new AppException("Role not found", HttpStatus.INTERNAL_SERVER_ERROR));
         user.setRoles(Collections.singletonList(role));
 
-        List<Company> companies = companyRepository.findAllById(signUpDto.companyId());
-        if (companies.size() != signUpDto.companyId().size()) {
-            throw new AppException("One or more companies not found", HttpStatus.BAD_REQUEST);
-        }
-        
-        user.setCompanies(companies);
-        companies.forEach(company -> company.getUsers().add(user));
-        
+        // Ottieni l'azienda utilizzando il singolo companyId
+        Company company = companyRepository.findById(signUpDto.companyId())
+                .orElseThrow(() -> new AppException("Company not found", HttpStatus.BAD_REQUEST));
+
+        // Imposta la relazione tra l'utente e l'azienda
+        user.setCompany(company);
+        company.getUsers().add(user);
+
         // Salva le entità aggiornate
         UserEntity savedUser = userRepository.save(user);
-        companyRepository.saveAll(companies);
+        companyRepository.save(company);  // Non c'è bisogno di usare saveAll perché stiamo salvando una singola azienda
 
         return userMapper.toUserDto(savedUser);
     }
+
 }

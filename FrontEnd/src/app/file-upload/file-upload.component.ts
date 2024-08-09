@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
+import { Destinatario } from '../destinatario/destinatario.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,7 +11,8 @@ export class FileUploadComponent {
   errorMessage: string | null = null;
   warningMessage: string | null = null;
   successMessage: string | null = null;
-  csvData: any[] = [];
+  headerErrors: string[] = [];
+  destinatari: Destinatario[] = [];
 
   constructor(private axiosService: AxiosService) {}
 
@@ -23,47 +25,41 @@ export class FileUploadComponent {
         this.errorMessage = '';
         this.warningMessage = '';
         this.successMessage = '';
+        this.headerErrors = [];
 
         try {
           const formData = new FormData();
-          console.log("ciao1")
           formData.append('file', file);
-          // Aggiungi eventuali parametri extra a formData se necessario
 
           // Invia tramite axios service
           const response = await this.axiosService.requestFile('POST', '/api/uploadFile', formData);
-          console.log(response);
 
-          if (response.success) {
-            this.csvData = response.data || [];
-            this.successMessage = response.message;
+          // Log the response structure
+          console.log('Response:', response);
+
+          if (response.data.success) {
+            this.destinatari = Object.values(response.data.data) || [];
+            this.successMessage = response.data.message;
           } else {
-            this.csvData = [];
+            this.destinatari = [];
             if (response.data.message === 'Header non riconosciuti') {
-              this.warningMessage = response.message;
-              console.log("ciao")
-              console.log('Header non riconosciuti:', response.data);
-            } else if (response.message === 'Errors in CSV') {
+              this.headerErrors = response.data.data || [];
+              this.warningMessage = 'Header non riconosciuti: ' + this.headerErrors.join(', ');
+            } else if (response.data.message === 'Errors in CSV') {
               this.errorMessage = 'Ci sono errori nel file CSV.';
-              console.log('Errors in CSV:', response.data);
+              // Aggiungi qui la gestione degli errori e il caricamento delle righe se necessario
+              const destinatarioMapControlTotal = response.data.data || {};
+              this.destinatari = Object.values(destinatarioMapControlTotal) as Destinatario[];
             } else {
-              this.errorMessage = response.message;
+              this.errorMessage = response.data.message;
             }
           }
-
-          console.log('File caricato con successo', response);
         } catch (error) {
-          console.error('Errore nel caricamento del file', error);
           this.errorMessage = 'Errore nel caricamento del file';
-          this.csvData = [];
+          console.error('File upload error:', error);
+          this.destinatari = [];
         }
       }
     }
-  }
-
-  ngOnInit() {}
-
-  getHashKeys() {
-    return this.csvData.length > 0 ? Object.keys(this.csvData[0]) : [];
   }
 }

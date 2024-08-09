@@ -6,7 +6,7 @@ import { Company } from './company';
   providedIn: 'root'
 })
 export class AxiosService {
-
+  private baseUrl = 'http://localhost:8080';
   constructor() {
     axios.defaults.baseURL = 'http://localhost:8080';
     //axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -56,8 +56,14 @@ export class AxiosService {
       
   
   }
-//gestione promise login  e register 
-  async request(method: string, url: string, data: any = null): Promise<any> {
+  getRows() {
+    return axios.get(`${this.baseUrl}/getRows`);
+  }
+
+
+  //gestione promise login  e register 
+  
+async request(method: string, url: string, data: any = null): Promise<any> {
     const headers: any = {};
 
     // Aggiungi il token di autenticazione, se presente
@@ -109,14 +115,26 @@ console.log("Request Method:", method);
 // Metodo per ottenere le società
 async getCompanies(): Promise<Company[]> {
   try {
+    // Assumendo che 'this.request' ritorni una Promise che risolve in un array di 'Company'
     const response = await this.request('get', '/api/companies');
-    return response;
+    
+    // Verifica se la risposta è del tipo corretto
+    if (Array.isArray(response)) {
+      return response;
+    } else {
+      throw new Error('Response is not an array of companies');
+    }
   } catch (error) {
-    console.error('Error fetching companies:', error);
+    // Gestione degli errori specifici
+    if (error instanceof TypeError) {
+      console.error('Type Error:', error.message);
+    } else if (error instanceof SyntaxError) {
+      console.error('Syntax Error:', error.message);
+    } else {
+      console.error('Unexpected Error:', error);
+    }
+    
+    // Rilancia l'errore per propagare il fallimento
     throw error;
   }
-}
-
-
-
-}
+}}

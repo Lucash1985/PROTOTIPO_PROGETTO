@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ago 06, 2024 alle 12:22
+-- Creato il: Ago 09, 2024 alle 12:49
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -30,28 +30,36 @@ SET time_zone = "+00:00";
 CREATE TABLE `app_user` (
   `id` bigint(20) NOT NULL,
   `login` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `company_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dump dei dati per la tabella `app_user`
 --
 
-INSERT INTO `app_user` (`id`, `login`, `password`) VALUES
-(1, 'Admin', '$2a$10$53QSVlIg73cL2wVykNmgTudLh.Io63erahM2kkujjYDIBWV2urc0K'),
-(2, 'Admin1', '$2a$10$TJ5pR3jnTLE5ZzdRq2jCFeCa98kPmPHCjgTjnsIfeTApsgXI04yPm'),
-(3, 'Admin1', '$2a$10$cuHKRjz5Hw.tBQqUGC4KWuD8uWbiX7P3zxNSFoqvZSeRk1zUjUk7C'),
-(4, 'admin2', '$2a$10$nStl9fPMzdOUZ/.85xyXNeyFmR5s.0j8QcHzW07f.vXNxNdIkVC/m'),
-(5, 'b', '$2a$10$0e0I/Em7TlpkmK2GFc5rkev8E/lb4K7qs3jZl744zLD7lZagCCv4G'),
-(10, 'Admin4', '$2a$10$U72hW69y.S5kI7rbNsovIupRnXXtAenOw0ZTT8LikHrSnUy2Eoksq'),
-(11, 'Admin4', '$2a$10$Wmxap/qngXfR6REia7oxx.PP64PhxXyt8ea6TBdMbRLX3yVKcCJr.'),
-(14, 's', '$2a$10$wrmIkm0QluL3lRmI0fZ0VOyJlxBeWWL.jPZM0O8huJCs3BvfG52.G'),
-(15, 'hg', '$2a$10$U1JPkOIM8J/nZa/KhSvvL.5h2ywkEMkgtR78v00cpNsBt6BNvbnSO'),
-(17, 'g@g.it', '$2a$10$U5aksPG0gZky7qlUo.La3ODNewSdPmkSr9B1VH7u8rdgG15TW6bl.'),
-(18, 'test@beispiel.de', '$2a$10$a3kllbpv5rSXiVOOzgm8l.ve5Qz5UnJw5XeEol6kspNHgsvi2QDwm'),
-(19, 'numerico589@gmail.com', '$2a$10$hV5Li0x1moUUcp4wNt1ZCeLYCKlT1naSRSVWqdjqofQMP5GvUPhTq'),
-(20, 'gt@gmail.com', '$2a$10$CRLGVu9Kb4bqeGb1Vxua5ukGWRWSbIZ/ssoerqPIxgs3iCQlUO5bi'),
-(21, 'k@gmail.com', '$2a$10$Z85RqQTtQuaSYRjnqxTT6eo.H9px57k.Vr9HvBS1B99HgYmrDU3By');
+INSERT INTO `app_user` (`id`, `login`, `password`, `company_id`) VALUES
+(1, 'Admin', '$2a$10$53QSVlIg73cL2wVykNmgTudLh.Io63erahM2kkujjYDIBWV2urc0K', NULL),
+(2, 'Admin1', '$2a$10$TJ5pR3jnTLE5ZzdRq2jCFeCa98kPmPHCjgTjnsIfeTApsgXI04yPm', NULL),
+(3, 'Admin1', '$2a$10$cuHKRjz5Hw.tBQqUGC4KWuD8uWbiX7P3zxNSFoqvZSeRk1zUjUk7C', NULL),
+(4, 'admin2', '$2a$10$nStl9fPMzdOUZ/.85xyXNeyFmR5s.0j8QcHzW07f.vXNxNdIkVC/m', NULL),
+(5, 'b', '$2a$10$0e0I/Em7TlpkmK2GFc5rkev8E/lb4K7qs3jZl744zLD7lZagCCv4G', NULL),
+(10, 'Admin4', '$2a$10$U72hW69y.S5kI7rbNsovIupRnXXtAenOw0ZTT8LikHrSnUy2Eoksq', NULL),
+(11, 'Admin4', '$2a$10$Wmxap/qngXfR6REia7oxx.PP64PhxXyt8ea6TBdMbRLX3yVKcCJr.', NULL),
+(14, 's', '$2a$10$wrmIkm0QluL3lRmI0fZ0VOyJlxBeWWL.jPZM0O8huJCs3BvfG52.G', NULL),
+(15, 'hg', '$2a$10$U1JPkOIM8J/nZa/KhSvvL.5h2ywkEMkgtR78v00cpNsBt6BNvbnSO', NULL),
+(17, 'g@g.it', '$2a$10$U5aksPG0gZky7qlUo.La3ODNewSdPmkSr9B1VH7u8rdgG15TW6bl.', NULL),
+(18, 'test@beispiel.de', '$2a$10$a3kllbpv5rSXiVOOzgm8l.ve5Qz5UnJw5XeEol6kspNHgsvi2QDwm', NULL),
+(19, 'numerico589@gmail.com', '$2a$10$hV5Li0x1moUUcp4wNt1ZCeLYCKlT1naSRSVWqdjqofQMP5GvUPhTq', NULL),
+(20, 'gt@gmail.com', '$2a$10$CRLGVu9Kb4bqeGb1Vxua5ukGWRWSbIZ/ssoerqPIxgs3iCQlUO5bi', NULL),
+(21, 'k@gmail.com', '$2a$10$Z85RqQTtQuaSYRjnqxTT6eo.H9px57k.Vr9HvBS1B99HgYmrDU3By', NULL),
+(22, 'd@gmail.it', '$2a$10$/RrdRotIRhGwhEYkOMmyl.gosmQ2Vug4s1/jhrAz1U5UZKFYhAAFC', 1),
+(23, 'd@gmail.it', '$2a$10$5gLdhq1rl6wvmWegDjMgvOPTwzwRFp0o9ZKmVXXrbD34FHJieA4Ny', 1),
+(24, 'r@gmail.com', '$2a$10$3mGM/P73K3mjcQLedObYNe.MnB/8W9fJnKyd696PboRoLdtzVDv0q', 2),
+(25, 'f@yhoo.it', '$2a$10$1RMbTDOGK.CXSnmu.FmILeN3vk.BFkf2lHWhd3rGhTti5Kq/PtBYW', 1),
+(26, 'p@gami.it', '$2a$10$NK3pLJugkBntpLNoKM82A.usfMWp1HAo1qPYQRu90JzRtKDODrbKq', 1),
+(27, 'b@gmail.it', '$2a$10$1WOyeccm9iw9T7bF4CcMhuoDzlLK584XypywXnvv/dmM3DqpGOCtO', 1),
+(28, 't@gmail.it', '$2a$10$/4eyDTqzQW5h9G5Ncvb3aOvy4NZLwvQp4lnsmrf1m0XoKDhhJy5gS', 1);
 
 -- --------------------------------------------------------
 
@@ -41864,7 +41872,14 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 (18, 1),
 (19, 1),
 (20, 1),
-(21, 2);
+(21, 2),
+(22, 2),
+(23, 2),
+(24, 2),
+(25, 1),
+(26, 2),
+(27, 2),
+(28, 2);
 
 --
 -- Indici per le tabelle scaricate
@@ -41874,7 +41889,8 @@ INSERT INTO `user_roles` (`user_id`, `role_id`) VALUES
 -- Indici per le tabelle `app_user`
 --
 ALTER TABLE `app_user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKcibobnb8xgty1t1ithfv41vkp` (`company_id`);
 
 --
 -- Indici per le tabelle `company`
@@ -41916,7 +41932,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT per la tabella `app_user`
 --
 ALTER TABLE `app_user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT per la tabella `company`
@@ -41939,6 +41955,12 @@ ALTER TABLE `roles`
 --
 -- Limiti per le tabelle scaricate
 --
+
+--
+-- Limiti per la tabella `app_user`
+--
+ALTER TABLE `app_user`
+  ADD CONSTRAINT `FKcibobnb8xgty1t1ithfv41vkp` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
 --
 -- Limiti per la tabella `company_users`

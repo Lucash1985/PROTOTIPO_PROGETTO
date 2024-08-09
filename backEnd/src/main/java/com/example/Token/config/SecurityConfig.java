@@ -35,7 +35,7 @@ public class SecurityConfig {
 				.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests((requests) -> requests.requestMatchers(HttpMethod.POST, "/login", "/register","/api/files/Upload")
 						.permitAll()
-						 .requestMatchers(HttpMethod.GET, "/api/companies").permitAll() 
+						 .requestMatchers(HttpMethod.GET, "/api/companies","/api/getRows").permitAll() 
 						.requestMatchers(HttpMethod.POST,"/uploadFile").authenticated()
 						.anyRequest().authenticated());
 		return http.build();

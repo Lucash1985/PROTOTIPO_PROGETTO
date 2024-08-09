@@ -1,30 +1,36 @@
 <div>
-    <input type="file" (change)="uploadFile($event)" />
-  
-    <div *ngIf="errorMessage">
-      <p style="color: red;">{{ errorMessage }}</p>
-    </div>
-    <div *ngIf="warningMessage">
-      <p style="color: orange;">{{ warningMessage }}</p>
-    </div>
-    <div *ngIf="successMessage">
-      <p style="color: green;">{{ successMessage }}</p>
-    </div>
-  
-    <div *ngIf="csvData.length > 0">
-      <h3>Dati del CSV:</h3>
-      <table border="1">
-        <thead>
-          <tr>
-            <th *ngFor="let header of getHashKeys()">{{ header }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of csvData">
-            <td *ngFor="let key of getHashKeys()">{{ row[key] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <input type="file" (change)="uploadFile($event)" />
+
+  <div *ngIf="errorMessage">
+    <p style="color: red;">{{ errorMessage }}</p>
   </div>
-  
+  <div *ngIf="warningMessage">
+    <p style="color: orange;">{{ warningMessage }}</p>
+  </div>
+  <div *ngIf="successMessage">
+    <p style="color: green;">{{ successMessage }}</p>
+  </div>
+
+  <!-- Mostra la tabella solo se ci sono intestazioni non riconosciute -->
+  <div *ngIf="headerErrors.length > 0">
+    <h3>Intestazioni non riconosciute</h3>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Intestazione</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let header of headerErrors">
+          <td>{{ header }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mostra i destinatari se ci sono -->
+  <div *ngIf="destinatari.length > 0">
+    <h3>Destinatari</h3>
+    <app-destinatario *ngFor="let destinatario of destinatari" [destinatario]="destinatario"></app-destinatario>
+  </div>
+</div>
